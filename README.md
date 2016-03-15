@@ -32,6 +32,7 @@ vortexgin_bcao_auth:
 
 ## How to Use
 ### Request Access Token
+#### As a Service
 ```
 /* @var $oAuthManager \Vortexgin\BCA\OAuthBundle\Manager\OAuthManager */
 $oAuthManager = $container->get('vortexgin.bca.oauth');
@@ -39,6 +40,7 @@ $response = $oAuthManager->getAccessToken();
 ```
 
 ### Registering User
+#### As a Service
 ```
 /* @var $userManager \Vortexgin\BCA\UserBundle\Manager\UserManager */
 $userManager = $container->get('vortexgin.bca.ewallet.user');
