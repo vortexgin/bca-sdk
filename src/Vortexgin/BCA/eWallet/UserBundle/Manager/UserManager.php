@@ -67,7 +67,6 @@ class UserManager
             $response = $this->connectionManager->stream('/ewallet/customers', 'POST', $params,
                 array(
                     'Authorization' => $this->token['token_type'].' '.$this->token['access_token'],
-                    //'Content-Type' => 'application/json',
                     'Content-Type' => 'application/json',
                     'Origin' => 'finhacks.id',
                     'X-BCA-Key' => $this->apiKey,
@@ -78,6 +77,74 @@ class UserManager
 
             if (!$response instanceof JsonResponse || $response->getStatusCode() != HttpStatusHelper::HTTP_OK) {
                 throw new PreconditionFailedHttpException('Invalid register response');
+            }
+
+            return json_decode($response->getContent(), true);
+        } catch (\Exception $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+    }
+
+    public function detail($primaryId){
+        try {
+            $timestamp = date('Y-m-d\TH:i:s'.substr(microtime(), 1, 4).'O');
+            $response = $this->connectionManager->stream("/ewallet/customers/{$this->merchantCode}/{$primaryId}", 'GET', array(),
+                array(
+                    'Authorization' => $this->token['token_type'].' '.$this->token['access_token'],
+                    'Content-Type' => 'application/json',
+                    'Origin' => 'finhacks.id',
+                    'X-BCA-Key' => $this->apiKey,
+                    'X-BCA-Timestamp' => $timestamp,
+                    'X-BCA-Signature' => BCASignature::generate('GET', "/ewallet/customers/{$this->merchantCode}/{$primaryId}", array(), $timestamp, $this->token['access_token'], $this->apiSecret),
+                )
+            );
+
+            if (!$response instanceof JsonResponse || $response->getStatusCode() != HttpStatusHelper::HTTP_OK) {
+                throw new PreconditionFailedHttpException('Invalid customer response');
+            }
+
+            return json_decode($response->getContent(), true);
+        } catch (\Exception $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+    }
+
+    public function update($primaryId, $name, $bod,
+                            $mobileNumber, $email, $status){
+        try {
+            $params = array(
+                          'CustomerName' => $name,
+                          'DateOfBirth' => $bod,
+                          'MobileNumber' => $mobileNumber,
+                          'EmailAddress' => $email,
+                          'WalletStatus' => $status,
+                      );
+            $timestamp = date('Y-m-d\TH:i:s'.substr(microtime(), 1, 4).'O');
+
+            if(!Validator::validate($params, 'CustomerName', null, 'empty'))
+                unset($params['CustomerName']);
+            if(!Validator::validate($params, 'DateOfBirth', 'date', 'empty'))
+                unset($params['DateOfBirth']);
+            if(!Validator::validate($params, 'MobileNumber', null, 'empty', 'FILTER_HANDPHONE_WITH_COUNTRY_CODE'))
+                unset($params['MobileNumber']);
+            if(!Validator::validate($params, 'EmailAddress', null, 'empty', 'FILTER_EMAIL'))
+                unset($params['EmailAddress']);
+            if(!Validator::validate($params, 'WalletStatus', null, 'empty'))
+                unset($params['WalletStatus']);
+
+            $response = $this->connectionManager->stream("/ewallet/customers/{$this->merchantCode}/{$primaryId}", 'PUT', $params,
+                array(
+                    'Authorization' => $this->token['token_type'].' '.$this->token['access_token'],
+                    'Content-Type' => 'application/json',
+                    'Origin' => 'finhacks.id',
+                    'X-BCA-Key' => $this->apiKey,
+                    'X-BCA-Timestamp' => $timestamp,
+                    'X-BCA-Signature' => BCASignature::generate('PUT', "/ewallet/customers/{$this->merchantCode}/{$primaryId}", $params, $timestamp, $this->token['access_token'], $this->apiSecret),
+                )
+            );
+
+            if (!$response instanceof JsonResponse || $response->getStatusCode() != HttpStatusHelper::HTTP_OK) {
+                throw new PreconditionFailedHttpException('Invalid customer response');
             }
 
             return json_decode($response->getContent(), true);

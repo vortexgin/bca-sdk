@@ -11,7 +11,7 @@ class ConnectionManager
     /* @var $baseUrl mixed */
   private $baseUrl;
 
-    protected $allowMethod = ['GET', 'POST', 'PATCH', 'DELETE'];
+    protected $allowMethod = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
     public function __construct($baseUrl = '')
     {
@@ -25,12 +25,10 @@ class ConnectionManager
                 return false;
             }
 
-            if (in_array($method, ['PATCH'])) {
-                $param = ['body' => $_param];
-            } elseif (in_array($method, ['POST'])) {
+            if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
                 $param = ['form_params' => $_param];
             } else {
-                $param = ['query' => $_param];
+                $param = ['json' => $_param];
             }
 
             foreach($header as $key=>$value){
@@ -48,7 +46,7 @@ class ConnectionManager
             $apiResponse = $client->request($method, $this->baseUrl.$url, $options);
             $content = $apiResponse->getBody();
             if ($apiResponse->getBody() instanceof Stream) {
-                $content = $apiResponse->getBody()->getContents();
+              $content = $apiResponse->getBody()->getContents();
             }
 
             $response = new JsonResponse();
