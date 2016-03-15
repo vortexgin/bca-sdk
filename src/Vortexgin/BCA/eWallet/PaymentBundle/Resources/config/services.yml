@@ -1,0 +1,9 @@
+services:
+    vortexgin.bca.ewallet.payment:
+        class: Vortexgin\BCA\eWallet\PaymentBundle\Manager\PaymentManager
+        arguments:
+            - %vortexgin.bca.oauth.host%
+            - %vortexgin.bca.oauth.api_id%
+            - %vortexgin.bca.oauth.api_secret%
+            - %vortexgin.bca.oauth.company_code%
+            - '@vortexgin.bca.oauth'

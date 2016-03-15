@@ -1,0 +1,3 @@
+vortexgin_bc_ae_wallet_payment_homepage:
+    path:     /
+    defaults: { _controller: VortexginBCAeWalletPaymentBundle:Default:index }
