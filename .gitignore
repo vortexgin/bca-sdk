@@ -1,7 +1,2 @@
-/app/
-/bin/
-/vendor/
-/web/
 /.gitignore-backup
-/debug.txt
 /test
