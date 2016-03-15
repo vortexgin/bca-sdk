@@ -1,0 +1,107 @@
+
+ // Clearing the cache for the dev environment with debug true
+
+ [OK] Cache for the "dev" environment (debug=true) was successfully cleared.                       
+
+PHPUnit 5.2.11 by Sebastian Bergmann and contributors.
+
+
+Starting test 'Vortexgin\BCA\OAuthBundle\Tests\Controller\DefaultControllerTest::testRequestAccessToken'.
+.string(4) "POST"
+string(39) "https://api.finhacks.id/api/oauth/token"
+array(2) {
+  'form_params' =>
+  array(1) {
+    'grant_type' =>
+    string(18) "client_credentials"
+  }
+  'headers' =>
+  array(2) {
+    'Authorization' =>
+    string(106) "Basic YzBjMGFkYjQtODMyZC00ZjE3LThjMTUtNjQ3NGZmZDlmYTkzOjhlMzA1OWNlLTg0Y2YtNDBlYy05Y2MyLTAzOWQwNzNlNTA1Yw=="
+    'Content-Type' =>
+    string(33) "application/x-www-form-urlencoded"
+  }
+}
+string(9) "OAuth : 
+"
+array(4) {
+  'access_token' =>
+  string(54) "CknY8qfLOpzRhKcR8X7GUGC5atnMFWxYNM4MOXKCDKbCwZHltcYipT"
+  'token_type' =>
+  string(6) "Bearer"
+  'expires_in' =>
+  int(3600)
+  'scope' =>
+  string(28) "resource.WRITE resource.READ"
+}
+
+Starting test 'Vortexgin\BCA\eWallet\UserBundle\Tests\Controller\DefaultControllerTest::testUserRegister'.
+E                                                                  2 / 2 (100%)string(4) "POST"
+string(39) "https://api.finhacks.id/api/oauth/token"
+array(2) {
+  'form_params' =>
+  array(1) {
+    'grant_type' =>
+    string(18) "client_credentials"
+  }
+  'headers' =>
+  array(2) {
+    'Authorization' =>
+    string(106) "Basic YzBjMGFkYjQtODMyZC00ZjE3LThjMTUtNjQ3NGZmZDlmYTkzOjhlMzA1OWNlLTg0Y2YtNDBlYy05Y2MyLTAzOWQwNzNlNTA1Yw=="
+    'Content-Type' =>
+    string(33) "application/x-www-form-urlencoded"
+  }
+}
+string(4) "POST"
+string(41) "https://api.finhacks.id/ewallet/customers"
+array(2) {
+  'form_params' =>
+  array(7) {
+    'CustomerName' =>
+    string(5) "Tommy"
+    'DateOfBirth' =>
+    string(10) "1988-08-31"
+    'PrimaryID' =>
+    string(13) "6289631441712"
+    'MobileNumber' =>
+    string(13) "6289631441712"
+    'EmailAddress' =>
+    string(19) "vortexgin@gmail.com"
+    'CompanyCode' =>
+    int(80173)
+    'CustomerNumber' =>
+    string(6) "XXX001"
+  }
+  'headers' =>
+  array(6) {
+    'Authorization' =>
+    string(61) "Bearer YwB6zyOW5rnIQEUPM81cNaoEnMlVhMkIWUVNnf9H0FxxNOqq0WnTO2"
+    'Content-Type' =>
+    string(16) "application/json"
+    'Origin' =>
+    string(11) "finhacks.id"
+    'X-BCA-Key' =>
+    string(36) "f37d2c17-22e5-4ffd-ae51-0585c70d0343"
+    'X-BCA-Timestamp' =>
+    string(24) "2016-03-15T05:20:11+0100"
+    'X-BCA-Signature' =>
+    string(64) "1ad70c059eb7bb9aaa973142b6bf45d24fe5e622b997ce20f787d95614450c8f"
+  }
+}
+
+
+Time: 896 ms, Memory: 18.00Mb
+
+There was 1 error:
+
+1) Vortexgin\BCA\eWallet\UserBundle\Tests\Controller\DefaultControllerTest::testUserRegister
+Symfony\Component\HttpKernel\Exception\BadRequestHttpException: Server error: `POST https://api.finhacks.id/ewallet/customers` resulted in a `503 Service Unavailable` response:
+{"ErrorCode":"ESB-14-005", "ErrorMessage":{"Indonesian":"Transaksi Tidak Dapat diproses" , "English":"Transaction Cannot (truncated...)
+
+
+/Users/admin/workspace/bca-sdk/src/Vortexgin/BCA/eWallet/UserBundle/Manager/UserManager.php:83
+/Users/admin/workspace/bca-sdk/src/Vortexgin/BCA/eWallet/UserBundle/Tests/Controller/DefaultControllerTest.php:17
+
+FAILURES!
+Tests: 2, Assertions: 0, Errors: 1.

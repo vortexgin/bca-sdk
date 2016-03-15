@@ -1,0 +1,7 @@
+services:
+    vortexgin.bca.oauth:
+        class: Vortexgin\BCA\OAuthBundle\Manager\OAuthManager
+        arguments:
+            - %vortexgin.bca.oauth.host%
+            - %vortexgin.bca.oauth.client_id%
+            - %vortexgin.bca.oauth.client_secret%
